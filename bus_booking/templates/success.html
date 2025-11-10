@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="card success">
+  <h2>🎉 Booking confirmed!</h2>
+  <p>Thanks, <b>{{ booking.passenger_name }}</b>. Your booking ID is <code>#{{ booking.id }}</code>.</p>
+  <p>Route: <b>{{ booking.route.source }} → {{ booking.route.destination }}</b></p>
+  <p>Date: {{ booking.route.travel_date.strftime('%d %b %Y') }} · Seats: {{ booking.seats }}</p>
+  <a class="btn" href="{{ url_for('index') }}">Book another</a>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin — Add Route</h2>
+<form class="card form" method="POST">
+    <div class="row"><label>Bus name</label><input name="bus_name" placeholder="e.g., Night Rider" required></div>
+    <div class="row"><label>From</label><input name="source" placeholder="Source city" required></div>
+    <div class="row"><label>To</label><input name="destination" placeholder="Destination city" required></div>
+    <div class="row"><label>Date</label><input type="date" name="date" required></div>
+    <div class="row"><label>Departure</label><input type="time" name="departure" required></div>
+    <div class="row"><label>Arrival</label><input type="time" name="arrival" required></div>
+    <div class="row"><label>Price (INR)</label><input name="price" type="number" step="0.01" required></div>
+    <div class="row"><label>Total seats</label><input name="total_seats" type="number" value="40" min="1" required></div>
+    <button type="submit">Add Route</button>
+</form>
+<h3 class="mt">Existing Routes</h3>
+<div class="grid">
+  {% for r in routes %}
+    <div class="card">
+      <h4>{{ r.bus_name }}</h4>
+      <p>{{ r.source }} → {{ r.destination }}</p>
+      <p>{{ r.travel_date.strftime('%d %b %Y') }} · {{ r.departure_time.strftime('%H:%M') }}</p>
+      <p>₹{{ '%.0f'|format(r.price) }} · Seats: {{ r.total_seats }}</p>
+    </div>
+  {% else %}
+    <p class="muted">No routes yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

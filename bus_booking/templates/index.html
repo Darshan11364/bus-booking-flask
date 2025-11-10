@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h1>Find your bus</h1>
+<form method="POST" class="card form">
+    <div class="row">
+        <label>From</label>
+        <input name="source" list="cities" placeholder="e.g., Bengaluru" required>
+    </div>
+    <div class="row">
+        <label>To</label>
+        <input name="destination" list="cities" placeholder="e.g., Chennai" required>
+    </div>
+    <div class="row">
+        <label>Date</label>
+        <input type="date" name="date" value="{{ today }}" required>
+    </div>
+    <button type="submit">Search Buses</button>
+</form>
+<datalist id="cities">
+    {% for c in cities %}
+    <option value="{{ c }}">
+    {% endfor %}
+</datalist>
+{% endblock %}

@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Buses from {{ source }} → {{ destination }} on {{ travel_date.strftime('%d %b %Y') }}</h2>
+{% if not routes %}
+    <p>No routes found. Try another date or city.</p>
+{% else %}
+    <div class="grid">
+    {% for r in routes %}
+      <div class="card">
+        <h3>{{ r.bus_name }}</h3>
+        <p class="muted">{{ r.source }} → {{ r.destination }}</p>
+        <p>Departs: {{ r.departure_time.strftime('%H:%M') }} · Arrives: {{ r.arrival_time.strftime('%H:%M') }}</p>
+        <p>Price: ₹{{ '%.0f'|format(r.price) }} · Seats left: {{ r.available_seats() }}</p>
+        <a class="btn" href="{{ url_for('route_details', route_id=r.id) }}">View & Book</a>
+      </div>
+    {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
